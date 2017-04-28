@@ -154,7 +154,7 @@ public class Main {
 
   /**
    * ruft alle Zeilen einzeln in der Tabelle book auf
-   * mit den Pfeiltasten laesst sich hier navigieren
+   * mit den p und n laesst sich hier navigieren
    */
   private static void navigieren() {
     System.out.println("Durch alles navigieren");
@@ -190,7 +190,7 @@ public class Main {
             }
             break;
           case 'e':
-            System.out.println("Das Unterprogramm wird beendet");
+            System.out.println("Ende");
             break;
           default:
             break;
