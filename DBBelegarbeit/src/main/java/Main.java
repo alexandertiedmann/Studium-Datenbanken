@@ -135,12 +135,12 @@ public class Main {
     int wahl = 0;
     do {
       wahl = eingabeInt("Bitte geben Sie eine book_id ein welche geloescht werden soll");
-      if (wahl < 0){
+      if (wahl < 0) {
         System.out.println("Bitte nur vorhandene Buecher loeschen");
       } else {
         boolean contains = false;
-        for (int element:book_ids) {
-          if (element==wahl) contains = true;
+        for (int element : book_ids) {
+          if (element == wahl) contains = true;
         }
         if (contains) correct = true;
       }
@@ -160,10 +160,46 @@ public class Main {
     System.out.println("Durch alles navigieren");
     String query = "SELECT * FROM book ORDER BY title;";
     ResultSet rs = executeSelectQuery(query);
-    ArrayList<String> anzahlSpalten = new ArrayList<String>();
+    ArrayList<String> anzahlSpalten = new ArrayList<>();
     anzahlSpalten.addAll(Arrays.asList("book_id", "title", "subtitle", "category", "price"));
-    //ausgabeErgebnis(anzahlSpalten, rs);
-    //Todo Pfeiltasten hin und herspringen
+    try { //SQLException abfangen
+      char eingabe = '0';
+      rs.last();
+      int anzahlZeilen = rs.getRow();
+      rs.first();
+      System.out.println("Navigation:" + System.lineSeparator() + "n:next   p:previos   e:exit");
+      do {
+        System.out.print("\r");
+        for (int i = 1; i <= anzahlSpalten.size(); i++) {
+          System.out.print(rs.getString(i) + "\t");
+        }
+        eingabe = eingabeChar();
+        switch (eingabe){
+          case 'n':
+            if (rs.getRow() == anzahlZeilen){
+              rs.first();
+            }else{
+              rs.next();
+            }
+            break;
+          case 'p':
+            if (rs.getRow() == 1){
+              rs.last();
+            }else{
+              rs.previous();
+            }
+            break;
+          case 'e':
+            System.out.println("Das Unterprogramm wird beendet");
+            break;
+          default:
+            break;
+        }
+      } while (eingabe != 'e');
+    }catch (SQLException e){
+      System.out.println("Es ist Fehler aufgetreten");
+      System.out.println(e.getMessage() + System.lineSeparator() + e.getSQLState());
+    }
   }
 
   /**
@@ -303,6 +339,29 @@ public class Main {
         System.out.println("Bitte gueltige Eingabe taetigen");
       } finally {
         scan.nextLine();
+      }
+    } while (!ok);
+    return eingabe;
+  }
+
+  /**
+   * neuen char eingeben
+   *
+   * @return eingabe des users
+   */
+  private static char eingabeChar() {
+    boolean ok = false;
+    char eingabe = '0';
+    Scanner scan = new Scanner(System.in);
+    do {
+      try {
+        eingabe = scan.next().charAt(0);
+        ok = true;
+      } catch (InputMismatchException e) {
+        //Nothing to do
+      } finally {
+        scan.nextLine();
+        System.out.print("\r");
       }
     } while (!ok);
     return eingabe;

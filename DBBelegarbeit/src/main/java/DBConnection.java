@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Verbindung fuer DB
@@ -19,7 +16,7 @@ public class DBConnection {
     Statement stmt = null;
     try {
       db = DriverManager.getConnection(url, user, password);
-      stmt = db.createStatement();
+      stmt = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
     } catch (SQLException e) {
       System.out.println("Eine Verbindung ist nicht moeglich:");
       System.out.println(e.getMessage() + System.lineSeparator() + e.getSQLState());
