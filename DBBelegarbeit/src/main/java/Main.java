@@ -86,6 +86,7 @@ public class Main {
     ResultSet rs = executeSelectQuery(query);
     ArrayList<String> anzahlSpalten = new ArrayList<String>();
     anzahlSpalten.addAll(Arrays.asList("book_id", "title", "subtitle", "category", "price"));
+    System.out.println(listeToString(anzahlSpalten));
     ausgabeErgebnis(anzahlSpalten, rs);
   }
 
@@ -104,7 +105,7 @@ public class Main {
     int category;
     do {
       category = eingabeInt("Bitte vorhandene category eingeben");
-      if (!(category > anzahl) && !(category < 0)) ok = true;
+      if (!(category > anzahl) && !(category < 1)) ok = true;
     } while (!ok);
     double price = eingabeDouble("Bitte price festlegen");
     //Ende Eingabe der Werte
@@ -158,7 +159,7 @@ public class Main {
    */
   private static void navigieren() {
     System.out.println("Durch alles navigieren");
-    String query = "SELECT * FROM book ORDER BY title;";
+    String query = "SELECT * FROM book ORDER BY book_id;";
     ResultSet rs = executeSelectQuery(query);
     ArrayList<String> anzahlSpalten = new ArrayList<>();
     anzahlSpalten.addAll(Arrays.asList("book_id", "title", "subtitle", "category", "price"));
