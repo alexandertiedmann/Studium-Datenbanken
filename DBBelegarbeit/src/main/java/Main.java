@@ -18,7 +18,7 @@ public class Main {
    */
   public static void main(String[] args) {
     Verarbeitung ver = new Verarbeitung();
-    System.out.println("Belegarbeit (Tabelle :");
+    System.out.println("Belegarbeit (Tabelle: book) :");
     boolean ende = false;
     boolean correct = false;
     int wahl = 0;
@@ -206,7 +206,7 @@ public class Main {
             break;
         }
       } while (eingabe != 'e');
-    }catch (SQLException e){
+    } catch (SQLException e) {
       System.out.println("Es ist ein Fehler aufgetreten");
     }
   }

@@ -95,17 +95,18 @@ public class Verarbeitung {
 
   /**
    * Fuellt das ResultSet in Navigation mit dem Ergebnis des Querys
+   *
    * @param nav
    * @return gibt die Anzahl der Zeilen im ResultSet
    */
-  protected int fillRSInNAvigation(Navigation nav){
+  protected int fillRSInNAvigation(Navigation nav) {
     nav.setRs(conn.executeSelectQuery(nav.getQuery()));
     try {
       nav.getRs().last();
       int zeilen = nav.getRs().getRow();
       nav.getRs().first();
       return zeilen;
-    } catch (SQLException e){
+    } catch (SQLException e) {
       System.out.println("Ein Fehler ist aufgetreten");
       return 0;
     }
@@ -113,8 +114,8 @@ public class Verarbeitung {
 
   /**
    * Gibt die Zeile(maker) im nav-Resultset als String zurueck
+   *
    * @param nav Navigation
-   * @param marker Zeile welche zurueckgegeben werden soll
    * @return Ergebniszeile
    */
   protected String getNavRow(Navigation nav) {
@@ -123,7 +124,7 @@ public class Verarbeitung {
     String back = "";
     try {
       nav.getRs().first();
-      for (int i = 1; i < nav.getMarker();i++){
+      for (int i = 1; i < nav.getMarker(); i++) {
         nav.getRs().next();
       }
       for (int i = 1; i <= anzahlSpalten.size(); i++) {
@@ -145,17 +146,19 @@ public class Verarbeitung {
    */
   protected String eintragAnzeigenAuswahl(boolean[] erg) {
     ArrayList<String> anzahlSpalten = new ArrayList<>();
+    String back = "";
     if (erg[0]) anzahlSpalten.add("book_id");
     if (erg[1]) anzahlSpalten.add("title");
     if (erg[2]) anzahlSpalten.add("subtitle");
     if (erg[3]) anzahlSpalten.add("category");
     if (erg[4]) anzahlSpalten.add("price");
     String auswahl = listeToString(anzahlSpalten);
-    System.out.println(auswahl);
+    back = back + auswahl + System.lineSeparator();
     String query = "SELECT " + auswahl + " FROM book;";
     ResultSet rs = conn.executeSelectQuery(query);
+    back = back + this.ergebnisToString(anzahlSpalten, rs);
     this.closeResult(rs);
-    return this.ergebnisToString(anzahlSpalten, rs);
+    return back;
   }
 
   /**

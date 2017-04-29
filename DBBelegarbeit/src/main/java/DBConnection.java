@@ -15,7 +15,7 @@ public class DBConnection {
    * Konstruktor fuer die Verbindung
    * Automatische Verbindung zur Belegarbeitsdatenbank
    */
-  public DBConnection(){
+  public DBConnection() {
     String url = "jdbc:postgresql://db.f4.htw-berlin.de:5432/_s0556127__belegarbeit";
     String user = "_s0556127__belegarbeit_generic";
     String password = "passwortausderhoelle";
@@ -23,7 +23,7 @@ public class DBConnection {
     stmt = null;
     try {
       db = DriverManager.getConnection(url, user, password);
-      stmt = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+      stmt = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
     } catch (SQLException e) {
       System.out.println("Eine Verbindung ist nicht moeglich:");
       System.out.println(e.getMessage() + System.lineSeparator() + e.getSQLState());
@@ -91,7 +91,7 @@ public class DBConnection {
   /**
    * Beenden der Verbindung und aufraeumen
    */
-  public void closeConnection(){
+  public void closeConnection() {
     try {
       stmt.close();
       db.close();

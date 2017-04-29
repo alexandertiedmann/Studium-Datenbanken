@@ -14,9 +14,10 @@ public class Navigation {
 
   /**
    * NAvigation mit Query
+   *
    * @param query
    */
-  public Navigation(String query){
+  public Navigation(String query) {
     this.marker = 1;
     this.rs = null;
     this.query = query;
@@ -24,63 +25,68 @@ public class Navigation {
 
   /**
    * Navigation mit vorhandenem ResultSet
+   *
    * @param rs
    */
-  public Navigation(ResultSet rs){
+  public Navigation(ResultSet rs) {
     this.marker = 1;
     this.rs = rs;
   }
 
   /**
    * setzt das ResultSet
+   *
    * @param rs neues ResultSet
    */
-  public void setRs(ResultSet rs){
+  public void setRs(ResultSet rs) {
     this.rs = rs;
   }
 
   /**
    * gibt das ResultSet zurueck
+   *
    * @return Resultset
    */
-  public ResultSet getRs(){
+  public ResultSet getRs() {
     return this.rs;
   }
 
   /**
    * erhoeht den Marker um 1
    */
-  public void setMarkerHoch(){
+  public void setMarkerHoch() {
     this.marker++;
   }
 
   /**
    * setzt den Marker um 1 runter
    */
-  public void setMarkerRunter(){
+  public void setMarkerRunter() {
     this.marker--;
   }
 
   /**
    * gibt des Marker zurueck
+   *
    * @return
    */
-  public int getMarker(){
+  public int getMarker() {
     return marker;
   }
 
   /**
    * setzt den Marker
+   *
    * @param zahl neuer Marker
    */
-  public void setMarker(int zahl){
+  public void setMarker(int zahl) {
     this.marker = zahl;
   }
 
   /**
    * Gibt den Query zurueck
    */
-  public String getQuery(){
+  public String getQuery() {
     return query;
   }
 }
