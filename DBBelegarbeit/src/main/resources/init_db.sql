@@ -71,3 +71,7 @@ CREATE TABLE translated (
   book_id INTEGER REFERENCES book(book_id) NOT NULL,
   language_id INTEGER REFERENCES language(language_id) NOT NULL
 );
+
+GRANT INSERT,DELETE,UPDATE,SELECT ON book_book_id_seq TO _s0556127__belegarbeit_generic;
+GRANT INSERT,DELETE ON book_book_id_seq TO _s0556127__belegarbeit_generic;
+GRANT SELECT ON category TO _s0556127__belegarbeit_generic;
