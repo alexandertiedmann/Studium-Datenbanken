@@ -35,7 +35,7 @@ public class Main {
       switch (wahl) {
         case 1:
           System.out.println("Alles ausgeben");
-          System.out.println(ver.eintragAnzeigenAlle());
+          System.out.println(ver.eintragAnzeigenAlleBook("SELECT * FROM book ORDER BY book_id;"));
           break;
         case 2:
           System.out.println("Neuen Datensatz eingeben");
@@ -79,6 +79,8 @@ public class Main {
     boolean fehler = false;
     do {
       try {
+        System.out.println("Moegliche Kategorien fuer den Eintrag");
+        System.out.println(ver.eintragAnzeigenAlleCategory("SELECT * FROM category ORDER BY 1;"));
         category = Eingaben.eingabeInt("Bitte vorhandene category eingeben");
         if (ver.eintragNeu(title, subtitle, category, price) > 0) {
           fehler = false;

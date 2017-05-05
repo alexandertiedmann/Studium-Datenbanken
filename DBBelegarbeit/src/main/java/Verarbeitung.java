@@ -22,11 +22,24 @@ public class Verarbeitung {
    *
    * @return String Ergebnis
    */
-  protected String eintragAnzeigenAlle() {
-    String query = "SELECT * FROM book ORDER BY book_id;";
+  protected String eintragAnzeigenAlleBook(String query) {
     ResultSet rs = conn.executeSelectQuery(query);
-    ArrayList<String> anzahlSpalten = new ArrayList<String>();
+    ArrayList<String> anzahlSpalten = new ArrayList<>();
     anzahlSpalten.addAll(Arrays.asList("book_id", "title", "subtitle", "category", "price"));
+    String back = this.ergebnisToString(anzahlSpalten, rs);
+    this.closeResult(rs);
+    return back;
+  }
+
+  /**
+   * gibt alle Zeilen der Tabelle category zurueck
+   *
+   * @return String Ergebnis
+   */
+  protected String eintragAnzeigenAlleCategory(String query) {
+    ResultSet rs = conn.executeSelectQuery(query);
+    ArrayList<String> anzahlSpalten = new ArrayList<>();
+    anzahlSpalten.addAll(Arrays.asList("category_id", "name"));
     String back = this.ergebnisToString(anzahlSpalten, rs);
     this.closeResult(rs);
     return back;
@@ -46,10 +59,11 @@ public class Verarbeitung {
     //Anzahl der Kategorien (Abhaengigkeit)
     String abfrage = "SELECT count(*) FROM category;";
     int anzahl = conn.executeCountQuery(abfrage);
-    boolean ok = false;
+    boolean fehler = true;
     do {
-      if (!(category > anzahl) && !(category < 1)) throw new Exception("Die Kategorie muss existieren");
-    } while (!ok);
+      if ((category > anzahl) || (category < 1)) throw new Exception("Die Kategorie muss existieren");
+      else fehler = false;
+    } while (fehler);
     //Ende Eingabe der Werte
     String query = "INSERT INTO book (title,subtitle,category,price) VALUES (\'" + title + "\',\'" + subtitle + "\'," + category + "," + price + ");";
     System.out.println("Buch wird nun eingefuegt");
